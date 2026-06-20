@@ -1,0 +1,349 @@
+{
+  "settings": {
+    "pdf": "data/raw_documents/OS.pdf",
+    "testset": "data/eval/testset.json",
+    "retrieve": 10,
+    "top": 3,
+    "out": "data/eval/results.json"
+  },
+  "summary": {
+    "questions": 30,
+    "retrieval_hit_rate": 100.0,
+    "avg_support_score": 77.7,
+    "avg_hallucination_risk": 1.4,
+    "avg_answer_recall": 95.6,
+    "avg_latency_seconds": 3.84
+  },
+  "rows": [
+    {
+      "question": "What is virtual memory?",
+      "answer": "Virtual memory detaches the programmer’s logical view of memory from the actual physical layout of hardware RAM. It uses specialized hardware inside the CPU called the Memory Management Unit (MMU) to map virtual addresses to physical addresses on the fly. This allows processes to execute with significantly more memory than is physically installed by loading pages into physical RAM frames only when they are actively accessed, a strategy known as demand paging.",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 1.01,
+      "generation_seconds": 29.157,
+      "total_seconds": 30.167
+    },
+    {
+      "question": "How does demand paging work?",
+      "answer": "Demand paging works by loading pages into physical RAM frames only when they are actively accessed by the execution pipeline. When a process references a virtual address whose corresponding page is not currently mapped into physical RAM, the system loads that page on demand. This strategy enables the execution of processes requiring more memory than is physically installed by mapping virtual addresses to physical addresses dynamically through the Memory Management Unit (MMU).",
+      "retrieval_hit": true,
+      "support_score": 83.33,
+      "hallucination_risk": 0.0,
+      "answer_recall": 0.6666666666666666,
+      "retrieval_seconds": 0.298,
+      "generation_seconds": 1.768,
+      "total_seconds": 2.066
+    },
+    {
+      "question": "What is a page fault and how does the kernel handle it?",
+      "answer": "A page fault occurs when a process references a virtual address whose corresponding page is not currently mapped into physical RAM. The hardware Memory Management Unit (MMU) triggers a special interrupt known as a page fault. \n\nThe kernel handles a page fault by intercepting this fault and halting the execution context of the thread. It then locates the requested page within permanent backing storage, finds an empty physical frame (or evicts an active frame using an allocation algorithm), copies the data into RAM, updates the page table flags, and restarts the interrupted instruction. This entire sequence happens transparently, allowing applications to run seamlessly while optimizing the use of available physical memory.",
+      "retrieval_hit": true,
+      "support_score": 50.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.328,
+      "generation_seconds": 1.623,
+      "total_seconds": 1.951
+    },
+    {
+      "question": "What is external fragmentation?",
+      "answer": "External fragmentation occurs when free memory becomes broken up into small, scattered fragments across the physical address space. Over time, although the sum of these empty spaces might be more than enough to run a new application, because the space is not contiguous, the application could not be loaded.",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.288,
+      "generation_seconds": 0.941,
+      "total_seconds": 1.229
+    },
+    {
+      "question": "What is the difference between paging and segmentation?",
+      "answer": "Paging breaks down physical memory into fixed-size blocks called frames and divides virtual memory into pages of the same size. Pages can be assigned to any available physical frame, with the operating system managing the translation via a page table. In contrast, segmentation divides memory based on logical components meaningful to programmers. It creates variable-sized segments that represent specific functions, objects, stack spaces, or global data arrays, allowing distinct protection settings for each logical segment. Thus, paging uses fixed-size blocks for memory management, while segmentation uses variable-sized, logically meaningful blocks.",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.281,
+      "generation_seconds": 1.969,
+      "total_seconds": 2.251
+    },
+    {
+      "question": "What is the role of the Memory Management Unit (MMU)?",
+      "answer": "The Memory Management Unit (MMU) is specialized hardware inside the CPU that maps virtual addresses to physical addresses on the fly. It enables the execution of processes requiring more memory than physically installed by supporting demand paging—loading pages into physical RAM only when actively accessed. Additionally, when a process references a virtual address not currently mapped in physical RAM, the MMU triggers a page fault interrupt, which the kernel handles to load the needed page into RAM and update page tables, allowing applications to run seamlessly.",
+      "retrieval_hit": true,
+      "support_score": 83.33,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 1.06,
+      "generation_seconds": 1.758,
+      "total_seconds": 2.818
+    },
+    {
+      "question": "Why do modern systems use multi-level page tables?",
+      "answer": "Modern systems use multi-level page tables because a simple flat page table design would be extremely wasteful on modern 64-bit platforms. Specifically, a flat table requires billions of individual page table entries for a typical 64-bit address space with 4 Kilobyte pages, consuming hundreds of gigabytes of RAM just to store the translation metadata. Multi-level page tables solve this scalability challenge by structuring the page table as a hierarchical tree, where a top-level directory points to mid-level directories, which in turn point to leaf page tables containing individual frame mappings. This design allows large blocks of unallocated virtual address space to avoid unnecessary creation of mid- or low-level directories, significantly reducing memory consumption for translation metadata and leaving more memory available for actual applications.",
+      "retrieval_hit": true,
+      "support_score": 50.0,
+      "hallucination_risk": 25.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.494,
+      "generation_seconds": 1.554,
+      "total_seconds": 2.048
+    },
+    {
+      "question": "What is the Translation Lookaside Buffer (TLB)?",
+      "answer": "The Translation Lookaside Buffer (TLB) is a specialized high-speed hardware cache located inside the Memory Management Unit (MMU). It acts as a fast, associative cache that stores recent virtual-to-physical page address translations. When the CPU executes an instruction referencing a memory address, the MMU first checks the TLB. If the mapping is cached (a TLB hit), the address translation occurs almost instantly, maintaining high performance. If the mapping is not found (a TLB miss), the MMU performs a full hierarchical page table walk to obtain the translation and then stores this translation in the TLB for future access.",
+      "retrieval_hit": true,
+      "support_score": 90.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.648,
+      "generation_seconds": 4.316,
+      "total_seconds": 4.963
+    },
+    {
+      "question": "What happens on a TLB miss?",
+      "answer": "On a TLB miss, the MMU must perform the full hierarchical page table walk to find the correct virtual-to-physical address translation. After obtaining this translation, it saves the resulting translation into the TLB so it's ready for subsequent accesses.",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.935,
+      "generation_seconds": 1.517,
+      "total_seconds": 2.452
+    },
+    {
+      "question": "What is a process?",
+      "answer": "A process is defined fundamentally as an independent instance of a program in execution, representing the fundamental unit of resource allocation within the system. It includes not just the compiled machine instructions (the text section), but also the current execution state, which consists of the program counter, hardware registers, the execution stack containing temporary function parameters and local variables, and the heap section allocated dynamically during execution.",
+      "retrieval_hit": true,
+      "support_score": 75.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.326,
+      "generation_seconds": 1.91,
+      "total_seconds": 2.236
+    },
+    {
+      "question": "What is the Process Control Block (PCB)?",
+      "answer": "The Process Control Block (PCB) is a highly complex data structure used by the operating system to track each process. It contains information about the current execution state of the process, which includes the program counter, hardware registers, the execution stack with temporary function parameters and local variables, and dynamically allocated heap section during execution.",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.407,
+      "generation_seconds": 1.359,
+      "total_seconds": 1.767
+    },
+    {
+      "question": "Describe the process lifecycle states.",
+      "answer": "The process lifecycle includes the following states:\n\n1. **New**: When a process is first initialized via a system instantiation call, it enters the New state.\n\n2. **Ready**: After the operating system allocates memory structures and constructs its Process Control Block (PCB), the process moves into the Ready state, meaning it is fully prepared to execute and is waiting for CPU time.\n\n3. **Running**: When the scheduler selects the process for execution, it enters the Running state, and its instructions are fed directly to the execution pipeline.\n\n4. **Waiting or Blocked**: If the process requires an external input/output operation or needs to wait for a shared lock synchronization event, it relinquishes the CPU and moves into the Waiting or Blocked state.\n\n5. **Ready (again)**: Once the external dependency is satisfied, an interrupt signals the kernel, moving the process back into the Ready queue.\n\n6. **Terminated**: When execution completes or encounters a fatal fault, the process passes into the Terminated state, where its resources are audited and reclaimed.",
+      "retrieval_hit": true,
+      "support_score": 58.33,
+      "hallucination_risk": 16.67,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.777,
+      "generation_seconds": 2.754,
+      "total_seconds": 3.531
+    },
+    {
+      "question": "How do threads differ from processes?",
+      "answer": "Threads differ from processes in that a process serves as the primary boundary for resource ownership and memory isolation, while threads act as individual units of execution and scheduling within that process. Multiple concurrent threads can exist within a single process, sharing the same virtual address space, file descriptor tables, and security contexts. However, each thread maintains its own independent program counter, CPU register set, and execution stack. This shared-memory model of threads allows for more efficient communication and collaboration compared to processes, which need complex inter-process communication mechanisms.",
+      "retrieval_hit": true,
+      "support_score": 62.5,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.394,
+      "generation_seconds": 1.796,
+      "total_seconds": 2.19
+    },
+    {
+      "question": "What is the difference between user-level and kernel-level threads?",
+      "answer": "User-level threads (ULTs) are implemented entirely by user-space libraries without any direct awareness from the kernel. In contrast, kernel-level threads are managed and scheduled directly by the kernel itself.\n\nThe key difference lies in who manages and schedules the threads: ULTs are managed in user space, while kernel-level threads are managed by the kernel.",
+      "retrieval_hit": true,
+      "support_score": 66.67,
+      "hallucination_risk": 0.0,
+      "answer_recall": 0.75,
+      "retrieval_seconds": 0.284,
+      "generation_seconds": 1.304,
+      "total_seconds": 1.588
+    },
+    {
+      "question": "What makes up the cost of a context switch?",
+      "answer": "The cost of a context switch (Cs) is made up of the following components:\n\n- Tr: The physical time required to save and restore hardware register sets\n- Tm: The latency involved in updating the memory management unit's page tables\n- Cl: The indirect performance degradation caused by cold CPU caches, Translation Lookaside Buffer (TLB) invalidation, and pipeline flushes\n\nMathematically, this is expressed as:  \nCs = Tr + Tm + Cl",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 0.75,
+      "retrieval_seconds": 0.364,
+      "generation_seconds": 1.349,
+      "total_seconds": 1.713
+    },
+    {
+      "question": "What is the difference between monolithic and microkernel architectures?",
+      "answer": "The difference between monolithic and microkernel architectures is based on how core system services are structured and interact with each other.\n\nIn a **monolithic architecture**, the entire operating system engine runs as a single, massive executable compiled into one integrated binary. Services such as process scheduling, memory management, file systems, network stacks, and device drivers all share the same address space and execute with full supervisor privileges. This design enables performance advantages because communication between subsystems occurs via direct C function calls with minimal overhead.\n\nIn contrast, although not fully detailed in the context, the mention of microkernels implies a more modular and minimalistic kernel that separates core services, minimizing the code running in supervisor mode. However, early microkernel designs suffered from costly inter-process communication overhead, which modern hybrid systems try to mitigate.\n\nThus, the primary difference is that monolithic kernels integrate all core services into one large executable with shared address space and privileges, while microkernels separate services more cleanly, generally running them in user space with more isolated address spaces, trading performance for modularity.\n\nThis explanation is derived from the context in section 2.1 and the contrast with hybrid systems described in 2.2.",
+      "retrieval_hit": true,
+      "support_score": 81.25,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.344,
+      "generation_seconds": 1.968,
+      "total_seconds": 2.311
+    },
+    {
+      "question": "How do microkernels improve fault isolation?",
+      "answer": "Microkernels improve fault isolation by enforcing strict privilege separation, allowing only the absolute minimum required functionality to run with supervisor privileges in the kernel. Traditional operating system components such as virtual file systems, networking protocols, and device drivers run as isolated, unprivileged server processes in user space. This design ensures that if a file system or driver crashes, it can be restarted like a standard user process without compromising the entire system. This results in excellent fault isolation compared to monolithic architectures, where a single crash in a device driver can compromise the whole kernel.",
+      "retrieval_hit": true,
+      "support_score": 50.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 5.568,
+      "generation_seconds": 2.399,
+      "total_seconds": 7.967
+    },
+    {
+      "question": "What is a hybrid kernel?",
+      "answer": "A hybrid kernel is an operating system architecture that blends microkernel principles with traditional monolithic kernel design. It employs structured modular design, clean logical separation, and abstracted interfaces inspired by microkernels but integrates performance-critical subsystems—such as graphics engines, virtual file system layers, and networking stacks—back into the kernel address space. This integration reduces the costly inter-process communication overhead found in early microkernel designs while maintaining structural organization. Examples of operating systems using hybrid kernels include Microsoft Windows NT and Apple macOS (XNU).",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 3.069,
+      "generation_seconds": 2.785,
+      "total_seconds": 5.854
+    },
+    {
+      "question": "What are Loadable Kernel Modules?",
+      "answer": "Loadable Kernel Modules (LKMs) are components used in contemporary monolithic platforms like Linux that allow the kernel binary to remain compact upon initial boot. They enable the dynamic parsing, loading, and linking of object code into the running kernel space as new hardware components or protocols are discovered at runtime. When loaded, an LKM behaves exactly like a native component of the monolithic architecture, possessing full privileges and executing within the shared address space. This approach provides practical flexibility without sacrificing execution speed.",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.799,
+      "generation_seconds": 1.839,
+      "total_seconds": 2.638
+    },
+    {
+      "question": "What is the difference between preemptive and non-preemptive scheduling?",
+      "answer": "The difference between preemptive and non-preemptive scheduling is based on whether a process can be interrupted once it starts executing on the CPU. \n\nIn a non-preemptive scheme, once a process is granted control of a CPU core, it retains execution rights unconditionally until it either terminates naturally or voluntarily relinquishes control by blocking on an I/O operation or a system synchronization point.\n\nThe context does not provide the detailed behavior of preemptive scheduling explicitly but implies that non-preemptive means no forced interruption occurs once a process is running, suggesting that preemptive scheduling allows the scheduler to interrupt a running process to assign the CPU to another process.\n\nThus, the key difference is that non-preemptive scheduling does not allow interruption of a running process, while preemptive scheduling does.",
+      "retrieval_hit": true,
+      "support_score": 50.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 1.191,
+      "generation_seconds": 2.542,
+      "total_seconds": 3.733
+    },
+    {
+      "question": "What scheduling metrics are used to evaluate CPU schedulers?",
+      "answer": "The scheduling metrics used to evaluate CPU schedulers, as described in the document, are:\n\n1. **CPU Utilization**: Measures the percentage of time the processor is actively executing useful user or kernel work rather than sitting idle.\n\n2. **Throughput**: Represents the raw number of distinct computational processes completed per unit of time.\n\n3. **Turnaround Time**: Calculates the total chronological span from the exact moment a process is submitted to the system until it reaches final termination.\n\n4. **Waiting Time**: Measures the cumulative duration a process spends sitting inside the ready queue waiting for CPU access.\n\n5. **Response Time**: Measures the latency from submission to the first observable output or execution slice, important for interactive user environments.",
+      "retrieval_hit": true,
+      "support_score": 80.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.645,
+      "generation_seconds": 1.943,
+      "total_seconds": 2.588
+    },
+    {
+      "question": "What is a race condition?",
+      "answer": "A race condition occurs when the final outcome of an operation depends directly on the exact order and timing of thread execution. Specifically, it happens when multiple concurrent threads or processes share access to the same data structures and attempt to modify a shared variable at the same time without coordination, leading to data corruption and unpredictable software behavior.",
+      "retrieval_hit": true,
+      "support_score": 75.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 0.75,
+      "retrieval_seconds": 0.975,
+      "generation_seconds": 1.76,
+      "total_seconds": 2.735
+    },
+    {
+      "question": "What is the difference between a mutex and a semaphore?",
+      "answer": "A mutex is a simple lock that ensures only one thread can access a protected resource at any given moment. A thread must acquire the mutex lock before entering the critical section and release it immediately upon exiting.\n\nA semaphore, on the other hand, maintains an internal counter, allowing a controlled number of identical resources to be accessed concurrently by multiple threads.\n\nThus, the key difference is that a mutex allows exclusive access to a resource for one thread at a time, whereas a semaphore allows multiple threads to access a limited number of resources concurrently.",
+      "retrieval_hit": true,
+      "support_score": 75.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.619,
+      "generation_seconds": 1.709,
+      "total_seconds": 2.328
+    },
+    {
+      "question": "What is the Virtual File System (VFS)?",
+      "answer": "The Virtual File System (VFS) is an abstraction layer within the kernel that provides a unified, standard interface for all file system implementations. It allows applications to use the same system calls (such as read or write) regardless of the underlying file system type (e.g., NTFS, ext4, or networked storage), and it transparently routes those commands to the appropriate low-level filesystem driver.",
+      "retrieval_hit": true,
+      "support_score": 100.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.628,
+      "generation_seconds": 1.673,
+      "total_seconds": 2.301
+    },
+    {
+      "question": "How does the block I/O layer optimize performance?",
+      "answer": "The block I/O layer optimizes performance by using I/O scheduling algorithms that reorder and merge incoming read and write requests. This minimizes physical drive head movement and maximizes overall throughput.",
+      "retrieval_hit": true,
+      "support_score": 75.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.715,
+      "generation_seconds": 2.081,
+      "total_seconds": 2.796
+    },
+    {
+      "question": "What is the difference between Type-1 and Type-2 hypervisors?",
+      "answer": "Type-1 hypervisors run directly on the bare physical hardware, offering high performance and deep isolation, which makes them ideal for data centers and enterprise clouds. In contrast, Type-2 hypervisors run as applications on top of a traditional host operating system, providing a convenient solution for software development, testing, and desktop virtualization.",
+      "retrieval_hit": true,
+      "support_score": 75.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.805,
+      "generation_seconds": 1.089,
+      "total_seconds": 1.894
+    },
+    {
+      "question": "What are protection rings in an operating system?",
+      "answer": "Protection rings in an operating system are hardware-enforced privilege levels provided by the CPU to maintain system integrity and protect user privacy. The kernel runs in the most privileged ring called Ring 0, which has full, unrestricted access to the hardware. User applications operate in the least privileged ring, Ring 3, which prevents them from executing sensitive instructions or directly accessing restricted memory areas. When user applications need to perform secure operations, they must request services through system calls, transferring control to the kernel layer for validation and processing.",
+      "retrieval_hit": true,
+      "support_score": 75.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 2.586,
+      "generation_seconds": 8.13,
+      "total_seconds": 10.715
+    },
+    {
+      "question": "What is thrashing?",
+      "answer": "Thrashing is a destructive state the kernel can enter when the system's active applications require more memory than physical RAM can accommodate. In this scenario, the system spends almost all of its CPU cycles constantly moving pages back and forth between RAM and swap space, causing application performance to drop to a crawl.",
+      "retrieval_hit": true,
+      "support_score": 50.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.507,
+      "generation_seconds": 1.206,
+      "total_seconds": 1.713
+    },
+    {
+      "question": "What are common page replacement algorithms?",
+      "answer": "Common page replacement algorithms mentioned are Least Recently Used (LRU) and Second Chance.",
+      "retrieval_hit": true,
+      "support_score": 50.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 0.75,
+      "retrieval_seconds": 0.35,
+      "generation_seconds": 0.755,
+      "total_seconds": 1.105
+    },
+    {
+      "question": "What is the difference between RAID 0 and RAID 1?",
+      "answer": "RAID 0 stripes data across multiple disks to maximize read and write speeds but offers no data redundancy. In contrast, RAID 1 mirrors data identically across drives to provide full hardware fault tolerance.",
+      "retrieval_hit": true,
+      "support_score": 75.0,
+      "hallucination_risk": 0.0,
+      "answer_recall": 1.0,
+      "retrieval_seconds": 0.362,
+      "generation_seconds": 1.13,
+      "total_seconds": 1.492
+    }
+  ]
+}
