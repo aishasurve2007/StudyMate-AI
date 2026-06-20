@@ -1,4 +1,7 @@
 import streamlit as st
+import os
+if not os.getenv("OPENAI_API_KEY") and "OPENAI_API_KEY" in st.secrets:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 from src.ingestion.metadata import add_metadata
 from src.ingestion.pdf_loader import PDFLoader
 
