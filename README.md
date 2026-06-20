@@ -1,3 +1,13 @@
+---
+title: StudyMate AI
+emoji: 📚
+colorFrom: green
+colorTo: blue
+sdk: streamlit
+app_file: app.py
+pinned: false
+---
+
 # StudyMate AI
 
 An **explainable document Q&A system** built on Retrieval-Augmented Generation.
