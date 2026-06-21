@@ -1,9 +1,19 @@
 import streamlit as st
 import os
+
+# --- INITIAL UI CONFIGURATION ---
+# Must be the very first Streamlit command called
+st.set_page_config(
+    page_title="StudyMate AI",
+    page_icon="📚"
+)
+
+st.title("StudyMate AI")
+st.write("Upload your study documents")
+
+# Environment setup
 if not os.getenv("OPENAI_API_KEY") and "OPENAI_API_KEY" in st.secrets:
     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-from src.ingestion.metadata import add_metadata
-from src.ingestion.pdf_loader import PDFLoader
 
 # --- REMOVED HEAVY IMPORTS FROM THE GLOBAL SCOPE ---
 # These will be imported dynamically inside functions to prevent the joblib/atexit crash.
@@ -22,7 +32,8 @@ def load_models():
         "embedder": Embedder(),
         "reranker": Reranker(),
         "generator": AnswerGenerator(),
-        "confidence": ConfidenceScorer()
+        "confidence": ConfidenceScorer(),
+        "hallucination": HallucinationDetector()  # Added this back to match your usage below
     }
 
 
@@ -35,6 +46,10 @@ def process_pdf_to_chunks(file_bytes, file_name):
     import os
     from src.chunking.chunker import DocumentChunker
     from src.intelligence.analyzer import DocumentAnalyzer
+    
+    # Moved inside function to prevent early global import crashes
+    from src.ingestion.metadata import add_metadata
+    from src.ingestion.pdf_loader import PDFLoader
 
     # Ensure directory exists
     os.makedirs("data/raw_documents", exist_ok=True)
@@ -54,10 +69,7 @@ def process_pdf_to_chunks(file_bytes, file_name):
     return chunks, documents
 
 
-# --- UI SETUP ---
-st.title("StudyMate AI")
-st.write("Upload your study documents")
-
+# --- UI INTERACTION ---
 uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
 
 if uploaded_file:
