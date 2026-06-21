@@ -87,7 +87,10 @@ if uploaded_file:
     from src.retrieval.hybrid_search import HybridRetriever
 
     texts = [c["chunk_text"] for c in chunks]
-    embeddings = models["embedder"].create_embeddings(texts)
+    embeddings = []
+for i in range(0, len(texts), 16):
+    batch = texts[i:i+16]
+    embeddings.extend(models["embedder"].create_embeddings(batch))
 
     vector_store = VectorStore()
     vector_store.build(embeddings, chunks)
