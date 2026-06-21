@@ -2,11 +2,12 @@ import streamlit as st
 import os
 
 # --- INITIAL UI CONFIGURATION ---
-# Must be the very first Streamlit command called
 st.set_page_config(
     page_title="StudyMate AI",
     page_icon="📚"
 )
+
+st.write("Application loaded ✅")
 
 st.title("StudyMate AI")
 st.write("Upload your study documents")
@@ -26,14 +27,13 @@ def load_models():
     from src.retrieval.reranker import Reranker
     from src.generation.answer_generator import AnswerGenerator
     from src.evaluation.confidence import ConfidenceScorer
-    from src.evaluation.hallucination import HallucinationDetector
 
     return {
         "embedder": Embedder(),
         "reranker": Reranker(),
         "generator": AnswerGenerator(),
         "confidence": ConfidenceScorer(),
-        "hallucination": HallucinationDetector()  # Added this back to match your usage below
+        "hallucination": None  # Set to None to defer heavy NLI initialization
     }
 
 
@@ -47,7 +47,6 @@ def process_pdf_to_chunks(file_bytes, file_name):
     from src.chunking.chunker import DocumentChunker
     from src.intelligence.analyzer import DocumentAnalyzer
     
-    # Moved inside function to prevent early global import crashes
     from src.ingestion.metadata import add_metadata
     from src.ingestion.pdf_loader import PDFLoader
 
@@ -122,7 +121,12 @@ if uploaded_file:
         for r in results[:5]:
             contexts.append(r["document"]["chunk_text"])
 
-        hallucination = models["hallucination"].check(
+        # --- LAZY LOADING HALLUCINATION DETECTOR ON USER QUERY ---
+        from src.evaluation.hallucination import HallucinationDetector
+
+        detector = HallucinationDetector()
+
+        hallucination = detector.check(
             response["answer"], contexts
         )
         
@@ -131,37 +135,4 @@ if uploaded_file:
         )
 
         st.subheader("Answer")
-        st.write(response["answer"])
-
-        st.subheader("AI Reliability")
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Confidence", f"{confidence:.2f}%")
-        with col2:
-            st.metric("Support Score", f"{hallucination['support_score']:.2f}%")
-        with col3:
-            st.metric("Hallucination Risk", f"{hallucination['hallucination_risk']:.2f}%")
-
-        with st.expander("Faithfulness Details"):
-            for item in hallucination["details"]:
-                st.write("Sentence:")
-                st.write(item["sentence"])
-                st.write("Entailment:", item["best_entailment"])
-                st.write("Supported:", item["supported"])
-                st.divider()
-
-        st.subheader("Sources")
-        for s in response["sources"]:
-            with st.expander(f"📄 {s['source']} | Page {s['page']}"):
-                st.write("Section:")
-                st.info(s.get("section", "Unknown"))
-                st.write("Evidence:")
-                st.code(s.get("evidence", ""))
-
-    st.write(f"Chunks created: {len(chunks)}")
-    with st.expander("View Chunks"):
-        st.json(chunks[:5])
-
-    st.write(f"Pages extracted: {len(documents)}")
-    with st.expander("View extracted JSON"):
-        st.json(documents)
+        st.write(response
