@@ -22,8 +22,7 @@ def load_models():
         "embedder": Embedder(),
         "reranker": Reranker(),
         "generator": AnswerGenerator(),
-        "confidence": ConfidenceScorer(),
-        "hallucination": HallucinationDetector(),
+        "confidence": ConfidenceScorer()
     }
 
 
