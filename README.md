@@ -24,6 +24,10 @@ just wiring an LLM to a vector store.
 ### 🖥️ Chat Interface & Live Pipeline Guardrails
 Below is the core application executing an on-the-fly RAG chain. It displays the grounded answer, extracted dynamic metadata citations, and the real-time AI Reliability metrics processing pipeline.
 
+<video src="YOUR_UPLOADED_GITHUB_VIDEO_URL.mp4" controls autoplay loop muted style="max-width: 100%; border-radius: 6px;">
+  Your browser does not support the video tag.
+</video>
+
 ![StudyMate AI App Dashboard](docs/Studymate_ai.png)
 
 ---
