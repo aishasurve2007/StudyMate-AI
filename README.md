@@ -5,7 +5,6 @@ colorFrom: green
 colorTo: blue
 sdk: streamlit
 app_file: app.py
-python_version: "3.11"
 pinned: false
 ---
 
@@ -24,6 +23,27 @@ just wiring an LLM to a vector store.
 
 ### 🖥️ Chat Interface & Live Pipeline Guardrails
 Below is the core application executing an on-the-fly RAG chain. It displays the grounded answer, extracted dynamic metadata citations, and the real-time AI Reliability metrics processing pipeline.
+Below is the core application executing an on-the-fly RAG chain. It displays the grounded answer, extracted dynamic metadata citations, and the real-time AI Reliability metrics processing pipeline.
+
+<video src="Below is the core application executing an on-the-fly RAG chain. It displays the grounded answer, extracted dynamic metadata citations, and the real-time AI Reliability metrics processing pipeline.
+
+<video src="Below is the core application executing an on-the-fly RAG chain. It displays the grounded answer, extracted dynamic metadata citations, and the real-time AI Reliability metrics processing pipeline.
+
+<video src="https://github.com/user-attachments/assets/b42f7e41-128a-4fce-93e1-dd0f60fcf82f" controls autoplay loop muted style="max-width: 100%; border-radius: 6px;">
+  Your browser does not support the video tag.
+</video>
+
+![StudyMate AI App Dashboard](docs/Studymate_ai.png)
+" controls autoplay loop muted style="max-width: 100%; border-radius: 6px;">
+  Your browser does not support the video tag.
+</video>
+
+![StudyMate AI App Dashboard](docs/Studymate_ai.png)
+" controls autoplay loop muted style="max-width: 100%; border-radius: 6px;">
+  Your browser does not support the video tag.
+</video>
+
+![StudyMate AI App Dashboard](docs/Studymate_ai.png)
 
 ![StudyMate AI App Dashboard](docs/Studymate_ai.png)
 
