@@ -24,7 +24,7 @@ just wiring an LLM to a vector store.
 ### 🖥️ Chat Interface & Live Pipeline Guardrails
 Below is the core application executing an on-the-fly RAG chain. It displays the grounded answer, extracted dynamic metadata citations, and the real-time AI Reliability metrics processing pipeline.
 
-<video src="YOUR_UPLOADED_GITHUB_VIDEO_URL.mp4" controls autoplay loop muted style="max-width: 100%; border-radius: 6px;">
+<video src="https://github.com/user-attachments/assets/b42f7e41-128a-4fce-93e1-dd0f60fcf82f" controls autoplay loop muted style="max-width: 100%; border-radius: 6px;">
   Your browser does not support the video tag.
 </video>
 
@@ -39,7 +39,7 @@ Below is the analytical dashboard running from `eval_dashboard.py`, visualizing 
 
 ---
 
-## Evaluation results
+## Evaluation Results
 
 Measured on a **30-question test set** over an operating-systems textbook, with
 deterministic generation (`temperature=0`) so the numbers are reproducible:
@@ -100,13 +100,12 @@ The design principle throughout: **the model phrases, the system grounds.**
 - **Evaluation harness** — a reproducible test set measuring retrieval,
   faithfulness, recall, and latency, used to tune the pipeline with evidence.
 
-## Tech stack
+## Tech Stack
 
-Python · Streamlit · OpenAI (`gpt-4.1-mini`) · sentence-transformers · FAISS ·
+Python · Streamlit · OpenAI (`gpt-4o-mini`) · sentence-transformers · FAISS ·
 rank-bm25 · cross-encoder reranker · DeBERTa NLI · pypdf
 
-## Project structure
-
+## Project Structure
 ```
 src/
 ├── ingestion/     PDF loading + metadata
@@ -120,10 +119,15 @@ evaluate.py        run the evaluation harness over a test set
 eval_dashboard.py  Streamlit view of the eval results
 ```
 
-## Running locally
+## Running Locally
 
 ```bash
-python -m venv .venv && .venv\Scripts\activate    # Windows
+python -m venv .venv 
+# Windows
+.venv\Scripts\activate
+# Mac/Linux
+source .venv/bin/activate
+
 pip install -r requirements.txt
 # set OPENAI_API_KEY in a .env file
 streamlit run app.py
@@ -131,7 +135,6 @@ streamlit run app.py
 
 ## Evaluation
 
-```bash
 # measure the pipeline over a test set (saves results to data/eval/)
 python evaluate.py --pdf data/raw_documents/OS.pdf --testset data/eval/testset.json
 
@@ -139,22 +142,22 @@ python evaluate.py --pdf data/raw_documents/OS.pdf --testset data/eval/testset.j
 streamlit run eval_dashboard.py
 ```
 
-## Limitations & next steps
-
+Limitations & Next Steps
 Honest about where this is an MVP:
 
-- **Answer recall is a keyword proxy**, not true correctness. The principled
-  upgrade is LLM-as-judge grading against reference answers.
-- **The retrieval-hit metric is lenient** (page-or-keyword match); a stricter
-  page-only metric would be more discriminating.
-- **Hybrid fusion uses a weighted score sum.** Reciprocal Rank Fusion would be
-  more robust, since semantic and BM25 scores aren't on the same scale.
-- **Single-document at a time**, PDF only; multi-document corpora and a
-  highlighted-evidence viewer are natural extensions.
-- **Not yet deployed** (runs locally); Streamlit Community Cloud is the next step.
+Answer recall is a keyword proxy, not true correctness. The principled
+upgrade is LLM-as-judge grading against reference answers.
 
-## About
+The retrieval-hit metric is lenient (page-or-keyword match); a stricter
+page-only metric would be more discriminating.
 
+Hybrid fusion uses a weighted score sum. Reciprocal Rank Fusion (RRF) would be
+more robust, since semantic and BM25 scores aren't on the same scale.
+
+Single-document at a time, PDF only; multi-document corpora and a
+highlighted-evidence viewer are natural extensions.
+
+About
 A self-directed project built to practice production RAG engineering — grounding,
 NLI-based hallucination detection, and reproducible evaluation — rather than a
 "PDF chatbot" demo.
